@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="broj">
+<button id="lefr" onclick="left()" ><</button>
+<button id="right" onclick="right()" >></button>
+<button id="flip" onclick="flip()" >FLIP</button>
+<button id="store" onclick="store()" >STORE</button>
+<button id="check" onclick="check()" >CHECK</button>
+<div><span id="here"></span></div>
+<div><span id="here2"></span></div>
+<script>
+    function left()
+    {
+        var broj=document.getElementById('broj');
+        var broj_vrednost=broj.value
+        if(broj_vrednost.length!=10)
+        {
+            alert("Vnesete deset cifren broj");
+            return;
+        }
+
+        var prvacifra=broj_vrednost.charAt(0)
+        console.log(prvacifra)
+        broj_vrednost=broj_vrednost.slice(1,10);
+        broj_vrednost=broj_vrednost+prvacifra;
+        broj.value=broj_vrednost
+
+    }
+    function right()
+    {
+        var broj=document.getElementById('broj');
+        var broj_vrednost=broj.value
+        if(broj_vrednost.length!=10)
+        {
+            alert("Vnesete deset cifren broj");
+            return;
+        }
+
+        var posledenbroj=broj_vrednost.charAt(9)
+        broj_vrednost=broj_vrednost.slice(0,9);
+        broj_vrednost=posledenbroj+broj_vrednost;
+        broj.value=broj_vrednost
+
+    }
+    function flip()
+    {
+        var broj=document.getElementById('broj');
+        var broj_vrednost=broj.value
+        if(broj_vrednost.length!=10)
+        {
+            alert("Vnesete deset cifren broj");
+            return;
+        }
+        var broj_vrednost2=0
+        for( var i=0;i<10;i++)
+        {
+            var cifra=broj_vrednost%10;
+            broj_vrednost2=Math.floor((broj_vrednost2*10)+cifra);
+            broj_vrednost=broj_vrednost/10;
+        }
+        console.log(broj_vrednost2);
+        broj.value=broj_vrednost2
+
+    }
+    function store()
+    {
+        var broj=document.getElementById('broj');
+        var broj_vrednost=broj.value
+        if(broj_vrednost.length!=10)
+        {
+            alert("Vnesete deset cifren broj");
+            return;
+        }
+        var element=document.getElementById('here2');
+        var li = document.createElement("li")
+        li.innerHTML =broj_vrednost;
+        broj.value="";
+        element.append(li)
+    }
+    function check()
+    {
+        var broj=document.getElementById('broj');
+        var broj_vrednost=broj.value
+        if(broj_vrednost.length!=10)
+        {
+            alert("Vnesete deset cifren broj");
+            return;
+        }
+        for(var i=0;i<10;i++)
+        {
+            if(broj_vrednost.charAt(i)%2==0 && broj_vrednost.charAt(i+1)%2==0)
+            {
+                document.getElementById('here').innerHTML="Perfekten";
+            }
+        }
+    }
+</script>
+</body>
+</html>

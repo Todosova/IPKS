@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> Регистрирај лет</h1>
+<div><label>Име и презиме</label><input type="text" id="ime"></div>
+<div><label>Ознака на летало</label><input type="text" id="oznaka"></div>
+<div><label>Координати на лет</label><input type="text" id="koordinati"></div>
+<div><label>Радиус на лет</label><input type="text" id="radius"></div>
+<div><label>Висина на лет</label><input type="text" id="visina"></div>
+<div><label>Тип на летало</label><select id="tip">
+    <option>Едрилица</option>
+    <option>Дрон</option>
+</select></div>
+<button id="btn" onclick="najavi()">Најави</button>
+<div><h2>Регистрирани летови</h2></div>
+<div><p>Вкупно најавени летови: <span id="here">0</span></p></div>
+<span id="katichki"></span>
+
+<script>
+    var brojach=0;
+    function najavi()
+    {
+        var ime=document.getElementById('ime');
+        var oznaka=document.getElementById('oznaka');
+        var koordinati=document.getElementById('koordinati');
+        var radius=document.getElementById('radius');
+        var visina=document.getElementById('visina');
+        var tip=document.getElementById('tip');
+
+        if(ime.value=="" || oznaka.value=="" || koordinati.value=="" || radius.value=="" || visina.value=="" || tip.value=="")
+        {
+            alert("Vnesete vrednosti vo site polinja");
+            return;
+        }
+        if(!valid_oznaka(oznaka.value))
+        {
+            alert("Nevalidna forma na oznaka");
+            return;
+        }
+        console.log(oznaka.value%1111!=0)
+        if(oznaka.value%1111==='false')
+        {
+            if(radius.value>500 || visina.value>150)
+            {
+                alert("Ne moze da se dodade zapisot poradi ogranicuvanje");
+                return;
+            }
+        }
+
+
+        var card=document.getElementById("katichki")
+        var createcard=document.createElement("li")
+
+        createcard.innerHTML=ime.value+", "+oznaka.value
+            +"<p>Радиус: "+radius.value+", Висина: "+visina.value+"</p>"
+            +"<p>"+tip.value+"</p>"
+            +"<button onclick='potvrdi(this)' id='potvrdi'>Потврди</button>"
+            +"<button onclick='otkazi(this)' id='otkazi'>Откажи</button>"
+        brojach++;
+        card.append(createcard);
+        document.getElementById('here').innerHTML=brojach;
+        if(tip.value==="Едрилица")
+        {
+            createcard.style.border = "2px solid black"
+        }
+        if(tip.value==="Дрон")
+        {
+            if(radius.value==visina.value)
+            {
+                createcard.style.border = "2px solid black"
+            }
+        }
+        ime.value="";
+        oznaka.value="";
+        koordinati.value="";
+        radius.value="";
+        visina.value="";
+        tip.value="";
+    }
+    function valid_oznaka(oznaka)
+    {
+        // console.log(oznaka.slice(0,7))
+        // console.log(oznaka.slice(7))
+        if(oznaka.slice(0,7)==="Z3-UNR-" && !isNaN(oznaka.slice(7)))
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function potvrdi(ok)
+    {
+        var tr=ok.parentNode
+        tr.style.backgroundColor="lightgreen"
+    }
+    function otkazi(no)
+    {
+        var tr=no.parentNode
+        tr.remove();
+        brojach--;
+        document.getElementById('here').innerHTML=brojach;
+    }
+</script>
+</body>
+</html>

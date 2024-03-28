@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        class Cilindar
+        {
+            constructor(rad,h) {
+                this.rad=rad;
+                this.h=h;
+                this.volumen=function ()
+                {
+                    return Math.PI*this.rad*this.rad*this.h;
+                };
+            }
+        }
+        function Volumen()
+        {
+            var rad=document.getElementById('radius').value;
+            rad=parseInt(rad);
+            var h=document.getElementById('h').value;
+            h=parseInt(h);
+            var rez=new Cilindar(rad,h);
+
+            document.getElementById("rezultat").innerHTML=rez.volumen();
+        }
+        /*  function Volumen()
+          {
+              var rad=document.getElementById('radius').value;
+              var h=document.getElementById('h').value;
+              var rez= 3.14*rad*rad*h;
+              document.getElementById("rezultat").innerHTML=rez;
+          }*/
+
+    </script>
+</head>
+<body>
+<div>Vnesi radius <input type="text" id="radius"></div>
+<div>Vnesi visina <input type="text" id="h"></div>
+<div> <input  type="button" value="Presmetaj" onclick="Volumen()"></div>
+<div id="rezultat"></div>
+</body>
+</html>

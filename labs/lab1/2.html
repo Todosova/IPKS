@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var broj=prompt("Vnesete go vashiot telefonski broj")
+    if(broj.length!=8)
+    {
+        broj=prompt("Vnesete go vashiot telefonski broj")
+    }
+    broj='0'+broj.slice(0,2)+'/'+broj.slice(2,5)+'-'+broj.slice(5)
+    document.write("Vashiot telefonski broj e: "+broj);
+    var operator=broj.slice(1,3)
+    if(parseInt(operator)== '70' || parseInt(operator)=='71' ||parseInt(operator)== '72')
+    {
+        document.write(" T-mobile");
+    }
+    else if(parseInt(operator)== '75' || parseInt(operator)=='76' )
+    {
+        document.write(" One");
+    }
+    else if (parseInt(operator)== '77' || parseInt(operator)== '78')
+    {
+        document.write(" Vip");
+    }
+    else
+    {
+        document.write(" Ne postoi takov operator")
+    }
+</script>
+</body>
+</html>

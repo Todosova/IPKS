@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var broj=prompt("Vnesi broj")
+    broj=parseInt(broj)
+    if(!isNaN(broj) ) {
+        if (broj < 100 || broj > 1000) {
+            document.write("Ne moze da se proveri vneseniot broj");
+            //alert("Ne moze da se proveri vneseniot broj")
+        }
+        else {
+
+            if(Math.floor(broj/100)==(broj%10))
+            {
+                document.write("palindrom "+ broj)
+                //alert("palindrom "+ broj)
+            }
+        }
+    }
+</script>
+</body>
+</html>

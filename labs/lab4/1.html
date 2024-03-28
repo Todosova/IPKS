@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h1
+        {
+            padding-left: 80px;
+        }
+        label {
+            display: inline-block;
+            padding-left: 100px;
+            padding-bottom: 20px;
+            width: 80px;
+        }
+        button
+        {
+            margin-left: 175px;
+        }
+        table, th{
+            border: solid black;
+        }
+    </style>
+    <script>
+        var students=[];
+        var i=0;
+        function Vnesi()
+        {
+            var name=document.getElementById('name').value;
+            var surname=document.getElementById('surname').value;
+            var index=document.getElementById('index').value;
+            var subject=document.getElementById('subject').value;
+            var grade=document.getElementById('grade').value;
+
+            if(name !="" && surname!="" && index!="" && subject!="" && grade!=null)
+            {
+                if(isNaN(parseInt(index)))
+                {
+                    alert("Indeksot treba da e broj");
+                    return 0;
+                }
+                else {
+                    students[i] = new Students(name, surname, index, subject, grade);
+                    i++;
+                    var a = document.getElementById('table')
+                    a.innerHTML = a.innerHTML + "<tr><th>" + name + "</th>" + "<th>" + surname + "</th>" + "<th>" + index + "</th>" + "<th>" + subject + "</th>" + "<th>" + grade + "</th></tr>";
+                    reset();
+                }
+            }
+            else
+            {
+                alert("Popolnete gi site polinja");
+            }
+        }
+        function Students(name,surname,index,subject,grade)
+        {
+            this.name=name;
+            this.surname=surname;
+            this.index=index;
+            this.subject=subject;
+            this.grade=grade;
+        }
+        function reset()
+        {
+            document.getElementById('name').value=""
+            document.getElementById('surname').value=""
+            document.getElementById('index').value=""
+            document.getElementById('subject').value=""
+
+
+        }
+    </script>
+</head>
+<body>
+<h1>
+    Форма за внесување оцени
+</h1>
+<div>
+
+    <label>Име:</label>
+    <input type="text" id="name"> <br>
+    <label>Презиме:</label>
+    <input type="text" id="surname"> <br>
+    <label>Индекс:</label>
+    <input type="text" id="index"> <br>
+    <label>Предмет:</label>
+    <input type="text" id="subject"> <br>
+    <label>Оцена:</label>
+    <select id="grade">
+        <option value="5">5 (пет)</option>
+        <option value="6">6 (шест)</option>
+        <option value="7">7 (седум)</option>
+        <option value="8">8 (осум)</option>
+        <option value="9">9 (девет)</option>
+        <option value="10">10 (десет)</option>
+    </select><br>
+    <button id="button" onclick="Vnesi()">Внеси</button>
+</div>
+<div>
+    <table id="table">
+        <tr>
+            <th>Име</th>
+            <th>Презиме</th>
+            <th>Индекс</th>
+            <th>Предмет</th>
+            <th>Оценка</th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

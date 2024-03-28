@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<input type="text" id="broj">
+<button id="left" onclick="left()"><</button>
+<button id="right" onclick="right()">></button>
+<button id="convert" onclick="convert()">CONVERT</button>
+<button id="store" onclick="store()">STORE</button>
+<button id="check" onclick="check()">CHECK</button>
+<span id="sovrshen"></span>
+<span id="lista"></span>
+</body>
+<script>
+  function left()
+  {
+    var broj=document.getElementById("broj")
+    var broj_vrednost=broj.value;
+    if(broj_vrednost.length!=10)
+    {
+      alert("Vnesete deset cifren broj");
+      return;
+    }
+    var prvacifra=broj_vrednost.charAt(1);
+    var vtoracifra=broj_vrednost.charAt(0);
+    var prvidve=vtoracifra+prvacifra;
+    console.log(prvidve)
+    broj_vrednost=broj_vrednost.slice(2,10);
+    broj_vrednost=broj_vrednost+prvidve;
+    broj.value=broj_vrednost;
+
+  }
+  function right()
+  {
+    var broj=document.getElementById("broj")
+    var broj_vrednost=broj.value;
+    if(broj_vrednost.length!=10)
+    {
+      alert("Vnesete deset cifren broj");
+      return;
+    }
+    var prvacifra=broj_vrednost.charAt(9);
+    var vtoracifra=broj_vrednost.charAt(8);
+    var prvidve=vtoracifra+prvacifra;
+    console.log(prvidve)
+    broj_vrednost=broj_vrednost.slice(0,8);
+    broj_vrednost=prvidve+broj_vrednost;
+    broj.value=broj_vrednost;
+  }
+  function convert()
+  {
+    var broj=document.getElementById("broj")
+    var broj_vrednost=broj.value;
+    if(broj_vrednost.length!=10)
+    {
+      alert("Vnesete deset cifren broj");
+      return;
+    }
+    var cifri=""
+    for(var i=0;i<10;i++)
+    {
+      var num=broj_vrednost.charAt(i);
+      var odzemanje=num-2;
+      if(odzemanje<0)
+      {
+        novoodzemanje=10-num-2;
+        cifri=cifri+novoodzemanje;
+      }
+      else
+      {
+        cifri=cifri+odzemanje;
+      }
+
+      broj.value=cifri
+
+    }
+  }
+  function store()
+  {
+    var broj=document.getElementById("broj")
+    var broj_vrednost=broj.value;
+    if(broj_vrednost.length!=10)
+    {
+      alert("Vnesete deset cifren broj");
+      return;
+    }
+    var element=document.getElementById('lista');
+    var li=document.createElement("li");
+    li.innerHTML=broj_vrednost;
+    broj.value="";
+    element.append(li);
+  }
+  function check()
+  {
+    var broj=document.getElementById("broj")
+    var broj_vrednost=broj.value;
+    if(broj_vrednost.length!=10)
+    {
+      alert("Vnesete deset cifren broj");
+      return;
+    }
+    var brojach=0;
+    for(var i=0;i<10;i++)
+    {
+      if(broj_vrednost.charAt(i)%3==0)
+      {
+        brojach++
+      }
+
+    }
+    if(brojach>=3)
+    {
+      document.getElementById('sovrshen').innerHTML="Sovrsheno";
+    }
+  }
+
+</script>
+</html>

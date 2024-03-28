@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+        img {
+            width: 100px;
+            height: 100px;
+            display: block;
+        }
+    </style>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var $table = document.getElementsByTagName("table")[0],
+                $data = $table.getElementsByTagName("img"),
+                flag = true, flag1 = false, step = 1,
+                first, second,
+                defaultSrc = "https://upload.wikimedia.org/wikipedia/commons/b/b4/Color_icon_purple_v2.svg",
+                images = [];var firstSrc, secondSrc,
+                $reset = document.getElementsByTagName("input")[0];
+
+            for(var i = 0; i < $data.length; i++) {
+                images.push([$data[i].parentNode.id, $data[i].src]);
+                $data[i].src = defaultSrc;
+            }
+
+            function find(id) {
+                for(var i = 0; i < images.length; i++)
+                    if(images[i][0] == id) {
+                        return images[i][1];
+                    }
+            }
+
+            function changeAndFind(elem) {
+                if(first != elem) {
+                    second = elem;
+                    second.src = secondSrc = find(second.parentNode.id);
+                } else return;
+                if(firstSrc == secondSrc && first.parentNode.id != second.parentNode.id)
+                    first.className = second.className = "found";
+                step = 3;
+            }
+
+            function memorize(elem) {
+                if(elem.tagName == "IMG" && elem.className != "found") {
+                    if(step == 1) {
+                        first = elem;
+                        first.src = firstSrc = find(first.parentNode.id);
+                        step = 2;
+                    } else if(step == 2) {
+                        changeAndFind(elem);
+                    } else if(step == 3) {
+                        if(elem != second) {
+                            var temp = first;
+                            first = second;
+                            firstSrc = first.src;
+                        } else return;
+                        if(temp.className != "found")
+                            temp.src = defaultSrc;
+                        changeAndFind(elem);
+                    }
+                }
+            }
+
+            function resetGame() {
+                for(var i = 0; i < $data.length; i++) {
+                    $data[i].src = defaultSrc;
+                    $data[i].className = "";
+                }
+                step = 1;
+            }
+
+            $table.addEventListener("click", function(e) {
+                memorize(e.target);
+            });
+            $reset.addEventListener("click", resetGame);
+        });
+
+    </script>
+</head>
+<body>
+<h1>Meморија</h1>
+<div style="text-align:left; float:left">
+    <table border="1">
+        <tr>
+            <td id="11"><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Baby.tux-800x800.png" class></td>
+            <td id="12"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Baby.gnu-800x800.png" class></td>
+            <td id="13"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Baby.tux.sit-black-800x800.png" class></td>
+            <td id="14"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Baby.tux.sit-800x800.png" class></td>
+        <tr>
+            <td id="21"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Baby.gnu-black-800x800.png" class></td>
+            <td id="22"><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Baby.tux-800x800.png" class></td>
+            <td id="23"><img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Baby.tux-black-800x800.png" class></td>
+            <td id="24"><img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Baby.tux-black-800x800.png" class></td>
+
+        </tr>
+        <tr>
+            <td id="31"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Baby.gnu-800x800.png" class></td>
+            <td id="32"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Background-black-1280x1024.png" class></td>
+            <td id="33"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Baby.gnu-black-800x800.png" class></td>
+            <td id="34"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Gnu.tux-1600x800.png" class></td>    </tr>
+        <tr>
+            <td id="41"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Gnu.tux-1600x800.png" class></td>
+            <td id="42"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Background-black-1280x1024.png" class></td>
+            <td id="43"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Baby.tux.sit-800x800.png" class></td>
+            <td id="44"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Baby.tux.sit-black-800x800.png" class></td>    </tr>
+    </table>
+    <input type="submit" value="RESET"/>
+</div>
+<br/>
+</body>

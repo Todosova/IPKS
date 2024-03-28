@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>Online classes</h1>
+<div><label>Name and surname</label> <input type="text" id="name"></div>
+<div><label>Email </label><input type="text" id="email"></div>
+<div><label>Age </label><input type="text" id="age"></div>
+<div><label>Username </label><input type="text" id="username"></div>
+<div><label>Password</label><input type="text" id="pass"></div>
+<div><label>Role</label><select id="role">
+  <option>teacher</option>
+  <option>student</option>
+</select></div>
+<button id="btn" onclick="add()">Add</button>
+<p>Available teachers: <span id="total">0</span></p>
+<h2>Users</h2>
+<table id="tabela">
+  <thead><th>Name</th><th>Username</th><th>Email</th><th>Age</th><th>Role</th><th>Actions</th></thead>
+  <tbody id="here">
+
+  </tbody>
+</table>
+
+<script>
+  var brojach=0;
+  function add() {
+    var namesurname = document.getElementById('name');
+    var email = document.getElementById('email');
+    var age = document.getElementById('age');
+    var username = document.getElementById('username');
+    var password = document.getElementById('pass');
+    var role = document.getElementById('role');
+
+    if (namesurname.value == "" || email.value == "" || age.value == "" || username.value == "" || password.value == "") {
+      alert("Vnesi podatoci vo site polinja");
+      return;
+    }
+    if (!checkPassword(password.value)) {
+      alert("Password-ot treba da sodrzi golema bukva brojka i da e podolg od 10 karakteri")
+      return;
+    }
+
+    if (age.value < 18 && role.value === "teacher") {
+      alert("Ne moze da bide profesor nekoj so pomalku od 18 godini");
+      return;
+    }
+
+    let array = document.getElementsByClassName("redici")
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].children[1].innerHTML === username.value) {
+        alert("Username already exists")
+        return;
+      }
+    }
+
+    var tableRef=document.getElementById('tabela').getElementsByTagName('tbody')[0]
+    var newRow=tableRef.insertRow(tableRef.rows.length)
+
+    var newCell0=newRow.insertCell(0);
+    var newCell1=newRow.insertCell(1);
+    var newCell2=newRow.insertCell(2);
+    var newCell3=newRow.insertCell(3);
+    var newCell4=newRow.insertCell(4);
+    var newCell5=newRow.insertCell(5);
+
+    newCell0.innerHTML=namesurname.value;
+    newCell1.innerHTML=username.value;
+    newCell2.innerHTML=email.value;
+    newCell3.innerHTML=age.value;
+    newCell4.innerHTML=role.value;
+    if(role.value==='teacher')
+    {
+      brojach++;
+      newCell5.setAttribute("class","btn")
+      var btn = document.createElement("BUTTON");
+      var t=document.createTextNode("Hire");
+      btn.append(t);
+      btn.setAttribute('onclick','hire(this)');
+      newCell5.appendChild(btn);
+
+    }
+    newRow.setAttribute("class", "redici")
+    if(role.value==="student")
+    {
+      newRow.style.backgroundColor='lightblue'
+    }
+    if(role.value==="teacher")
+    {
+      newRow.style.backgroundColor='lightgreen'
+    }
+    document.getElementById('total').innerHTML=brojach;
+  }
+  function checkPassword(password) {
+    var password = document.getElementById('pass');
+    var bukva = 0;
+    var brojka = 0;
+
+    for (var i = 0; i < password.value.length; i++) {
+      if (password.value[i] >= 'A' && password.value[i] <= 'Z') {
+        bukva++;
+      }
+      if (password.value[i] >= '0' && password.value[i] <= '9') {
+        brojka++;
+      }
+    }
+    console.log(bukva)
+    console.log(brojka)
+    if (password.value.length < 10) {
+      return false;
+    } else if (bukva < 1) {
+      return false;
+    } else if (brojka < 1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function hire(ref)
+  {
+    --brojach;
+    tr=ref.parentNode.parentNode;
+    tr.style.backgroundColor='lightgrey'
+    ref.remove()
+    document.getElementById('total').innerHTML=brojach;
+  }
+
+</script>
+
+<style>
+  h1{
+    text-align: center;
+  }
+  label{
+    display: inline-block;
+    width: 250px;
+  }
+  input,select{
+    width: 300px;
+
+  }
+  div{
+    padding: 10px;
+  }
+  table,td,th{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+  }
+</style>
+</body>
+</html>

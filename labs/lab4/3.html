@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    h1
+    {
+      display: inline-block;
+      padding-left: 150px;
+    }
+    #color
+    {
+      display: inline-block;
+      margin-left:  245px;
+    }
+    label{
+      padding-left: 150px;
+
+    }
+    button{
+      margin-left: 295px;
+    }
+  </style>
+  <script>
+    function Promeni() {
+      document.body.style.backgroundImage = "";
+
+      var proverka = document.getElementsByClassName('proverka');
+      var value = document.getElementById('value').value;
+      if (proverka[0].checked == true) {
+        document.body.style.backgroundColor = value;
+      }
+      else if (radios[1].checked == true) {
+        document.body.style.backgroundImage = "url('"+value+"')";
+      }
+    }
+  </script>
+</head>
+<body>
+<h1>Промена на позадина</h1>
+
+<div>
+  <input type="radio" id="color" class="proverka" checked>Color
+  <input type="radio" class="proverka">Image <br>
+</div>
+<div>
+  <br>
+  <label>Value: </label><input type="text" id="value"> <br>
+  <br>
+  <button id="button" onclick="Promeni()">Промени</button>
+</div>
+</body>
+</html>

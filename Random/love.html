@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Do you wanna build a snowman</title>
+</head>
+<body>
+<div id="img"><img src="download.jpg"></div>
+<p>Do you wanna build a snowman?</p>
+<button id="yes" class="btn" onclick="druga()">Yes</button>
+<button id="no" class="btn" onmouseover="prenesi()">No</button>
+<style>
+    #no {
+        position: absolute;
+    }
+    #img
+    {
+        text-align: center;
+    }
+    p{
+        text-align: center;
+        font-family: Arial;
+        font-size: 30px;
+        
+    }
+    #yes
+    {
+        margin-left: 700px;
+        padding: 10px;
+        background-color: orange;
+    }
+    #no
+    {
+        margin-left: 15px;
+        padding: 10px;
+    }
+</style>
+<script>
+    function druga()
+    {
+        window.location.href = 'druga.html';
+    }
+    function prenesi() {
+        var buttonNo = document.getElementById("no");
+        var randomTop = Math.floor(Math.random() * (window.innerHeight - buttonNo.offsetHeight)); // Random top position within the window height
+        var randomLeft = Math.floor(Math.random() * (window.innerWidth - buttonNo.offsetWidth)); // Random left position within the window width
+
+        // Update button position
+        buttonNo.style.top = randomTop + "px";
+        buttonNo.style.left = randomLeft + "px";
+    }
+</script>
+</body>
+</html>

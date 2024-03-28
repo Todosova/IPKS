@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var string=prompt("Vnesi tekst")
+    string = string.split(" ");
+    max = "";
+
+    for( word of string )
+        if (word.length > max.length)
+            max = word;
+
+
+    alert(max);
+</script>
+</body>
+</html>

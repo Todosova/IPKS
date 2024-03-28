@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function duplikati(niza)
+        {
+            var niza=niza.split(" ")
+            var a=[];
+            var i=0,j=0,k=0,flag=0;
+            for(i=0;i<niza.length;i++) {
+                for (j = 0; j < a.length; j++)
+                {
+                    if(niza[i]==a[j])
+                    {
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==0)
+                {
+                    a[k]=niza[i];
+                    k++;
+                }
+                flag=0;
+            }
+            document.getElementById("izbrishaniduplikati").innerHTML=a;
+
+
+        }
+
+    </script>
+
+</head>
+<body>
+
+<div> Vnesi broevi <input type="text" id="broevi"></div>
+<div> <input type="button" id="izbrishi" value="Brishi" onclick="duplikati(document.getElementById('broevi').value)"></div>
+<div id="izbrishaniduplikati"></div>
+</body>
+</html>

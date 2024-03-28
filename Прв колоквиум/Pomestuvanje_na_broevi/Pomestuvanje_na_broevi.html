@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div><label><input type="text" id="1"> <input type="button" value="<" id="1<" onclick="left()"> <input type="button" value=">" id="1>" onclick="right()"> <input type="button" value="Validate" id="validate" onclick="validate()"></label></div>
+<span id="here1"></span><br>
+<span id="here2"></span><br>
+<span id="here3"></span><br>
+<script>
+    function left()
+    {
+        var broj=document.getElementById('1').value;
+        if(broj=="")
+        {
+            alert("Vnesete broj na kartichka");
+            return;
+        }
+        if(isNaN(broj.slice(0,4)) || isNaN(broj.slice(5,9)) || isNaN(broj.slice(10,14)) || isNaN(broj.slice(15,19)) || broj.slice(4,5)!='-' || broj.slice(9,10)!='-' || broj.slice(14,15)!='-')
+        {
+            alert("Ne validna forma za broj na kartichka")
+        }
+        var poslednichetiricifri=broj.slice(0,4);
+        var ostanatbroj=broj.slice(5,19)
+        console.log(poslednichetiricifri)
+        var finalbroj=ostanatbroj+'-'+poslednichetiricifri;
+        console.log(finalbroj)
+
+        document.getElementById('1').value=finalbroj;
+    }
+    function right()
+    {
+        var broj=document.getElementById('1').value;
+        if(broj=="")
+        {
+            alert("Vnesete broj na kartichka");
+            return;
+        }
+        if(isNaN(broj.slice(0,4)) || isNaN(broj.slice(5,9)) || isNaN(broj.slice(10,14)) || isNaN(broj.slice(15,19)) || broj.slice(4,5)!='-' || broj.slice(9,10)!='-' || broj.slice(14,15)!='-')
+        {
+            alert("Ne validna forma za broj na kartichka")
+        }
+        var prvichetiricifri=broj.slice(15,19);
+        var ostanatbroj=broj.slice(0,14)
+        console.log(prvichetiricifri)
+        var finalbroj=prvichetiricifri+'-'+ostanatbroj;
+        console.log(finalbroj)
+        document.getElementById('1').value=finalbroj;
+    }
+    function validate()
+    {
+        var broj=document.getElementById('1').value;
+        if(broj=="")
+        {
+            alert("Vnesete broj na kartichka");
+            return;
+        }
+        if(isNaN(broj.slice(0,4)) || isNaN(broj.slice(5,9)) || isNaN(broj.slice(10,14)) || isNaN(broj.slice(15,19)) || broj.slice(4,5)!='-' || broj.slice(9,10)!='-' || broj.slice(14,15)!='-')
+        {
+            alert("Ne validna forma za broj na kartichka")
+        }
+        var prvicetiricifri=broj.slice(0,4);
+        var vtoricetiricifri=broj.slice(5,9);
+        var tretircetiricifri=broj.slice(10,14);
+        var cetvrticetiricifri=broj.slice(15,19);
+        if(prvicetiricifri%1111==0 || vtoricetiricifri%1111==0 || tretircetiricifri%1111==0 || cetvrticetiricifri%1111==0)
+        {
+            document.getElementById('here3').innerHTML="Not valid"
+            return;
+        }
+        document.getElementById('1').value=broj;
+
+
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Систем за сметки</h1>
+<div><label>Име: <input type="text" id="ime"></label></div>
+<div><label>Презиме: <input type="text" id="prezime"></label></div>
+<div><label>ID: <input type="text" id="id"></label></div>
+<div><label>Промет: <input type="text" id="promet"></label></div>
+<div><button id="btn" onclick="zacuvaj()">Зачувај</button></div>
+<h2>Внесени сметки</h2>
+<div><span id="here"></span></div>
+<h3>Платени сметки:</h3>
+<div><span id="plateno"></span></div>
+<script>
+    var data='[{"ime":"Nikola","prezime":"Nikolovski","id":"NNN1asdfgh","promet":"1000"},' +
+        '{"ime":"Nikolina","prezime":"Nikolovska","id":"NNN2asdfgh","promet":"3000"}]'
+    data=JSON.parse(data)
+    window.onload=function ()
+    {
+        for(i=0;i<data.length;i++)
+        {
+            var name=data[i].ime
+            var surname=data[i].prezime
+            var ids=data[i].id
+            var suma=data[i].promet
+
+            var card=document.getElementById('here')
+            var createcard=document.createElement('div')
+
+            createcard.innerHTML="Сметка број: "+Math.floor(Math.random()*100000)+"<p>Име: "+name+"</p>"+
+                "<p>Презиме: "+surname+"</p>"+"<p>ID: "+ids+"</p>"+"<p>Промет: "+suma+"</p>"+
+                "<button id='plati' onclick='plati(this)'>Плати</button>"
+            createcard.setAttribute("class","nova")
+
+            if(suma<5000)
+            {
+                createcard.style.backgroundColor='lightgreen'
+            }
+            else
+            {
+                createcard.style.backgroundColor='red'
+            }
+            card.append(createcard)
+        }
+    }
+    function zacuvaj() {
+        var ime = document.getElementById('ime')
+        var prezime = document.getElementById('prezime')
+        var id = document.getElementById('id')
+        var promet = document.getElementById('promet')
+
+        if (ime.value == "" || prezime.value == "" || id.value == "" || promet.value == "") {
+            alert("Vnesete vrednosti vo site polinja");
+            return;
+        }
+
+        // parsepromet=parseInt(promet.value)
+        // if(isNaN(parsepromet))
+        // {
+        //     alert("Vnesi suma za promet")
+        //     return;
+        // }
+
+        var elementi = document.getElementsByClassName("nova")
+        for(i=0;i<elementi.length;i++)
+        {
+            console.log(elementi[i].children[2])
+            console.log(elementi[i].children[2].children[0]===id.value)
+            if(elementi[i].children[2].children[0]===id.value)
+            {
+                var novaSuma =  parseInt(promet.value)
+                var postoecka = parseInt(elementi[i].children[4].children[0].innerHTML)
+                var finalSuma = novaSuma + postoecka
+                elementi[i].children[4].children[0].innerHTML = finalSuma
+                return;
+            }
+        }
+        if (!proverka(id.value)) {
+            alert("Nevaliden vlez za id")
+            return;
+        }
+
+        var card2=document.getElementById('here')
+        var createcard2=document.createElement('div')
+        createcard2.innerHTML="Сметка број: "+Math.floor(Math.random()*100000)+"<p>Име: "+ime.value+"</p>"+
+            "<p>Презиме: "+prezime.value+"</p>"+"<p>ID: <span class='proveriID'>"+id.value+"</span>"+"<p>Промет: "+promet.value+"</p>"+
+            "<button id='plati' onclick='plati(this)'>Плати</button>"
+        createcard2.setAttribute("class","nova")
+        card2.append(createcard2)
+        if(promet.value<5000)
+        {
+            createcard2.style.backgroundColor='lightgreen'
+        }
+        else
+        {
+            createcard2.style.backgroundColor='red'
+        }
+
+        // ime.value=""
+        // prezime.value=""
+        // id.value=""
+        // promet.value=""
+    }
+    function proverka(id)
+    {
+        gbukva=0;
+        brojka=0;
+        if(id.length=10 )
+        {
+            for(var i=0;i<id.length;i++)
+            {
+                if(id[i]===id[i].toUpperCase())
+                {
+                    gbukva++;
+                }
+                if(!isNaN(id[i])) {
+                    brojka++
+                }
+            }
+            console.log(gbukva)
+            console.log(brojka)
+        }
+        if(gbukva>3 && brojka==1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    function plati(btn)
+    {
+        var parent=btn.parentNode
+        parent.style.opacity=1
+        var myInterval=setInterval(function ()
+        {
+            parent.style.opacity-=0.1
+        },200)
+        setTimeout(function ()
+        {
+            clearInterval(myInterval)
+            var element=parent
+            element.style.opacity=1
+            var lista=document.getElementById("plateno")
+            lista.append(element)
+        },2000)
+
+
+    }
+</script>
+<style>
+    .nova{
+        display: inline-block;
+        padding: 28px;
+        margin: 10px;
+        border: 1px solid black;
+        height: 200px;
+
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        label{
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        button
+        {
+            display: inline-block;
+            margin-left: 140px;
+        }
+        #types
+        {
+            width: 170px;
+        }
+
+    </style>
+    <script>
+        function Prikazi()
+        {
+            var niza=[];
+            var items=document.getElementById('items').value;
+            niza=items.split(",");
+            var add=document.getElementById('tuka');
+            var type=document.getElementById('types').value;
+            for(var i=0;i<niza.length;i++)
+            {
+                add.innerHTML=add.innerHTML+"<input type="+type+">"+niza[i]+" ";
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label>Items:<input type="text" id="items"></label><br>
+    <label>Type:</label>
+    <select id="types" >
+        <option value="radio">Radio button</option>
+        <option value="checkbox">Chack box</option>
+    </select>
+    <br>
+    <button onclick="Prikazi()">Прикажи</button>
+</div>
+<div id="tuka">
+
+</div>
+</body>
+</html>

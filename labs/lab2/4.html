@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function Dodaj()
+        {
+            var a=document.getElementById("eden").value;
+            var b=document.getElementById("dva").value;
+            var c=document.getElementById("tri").value;
+            var d=document.getElementById("chetiri").value;
+            a=parseInt(a);
+            b=parseInt(b);
+            c=parseInt(c);
+            d=parseInt(d);
+            var sum1=a+c;
+            var sum2=b+d;
+            document.getElementById("prv").value=sum1;
+            document.getElementById("vtor").value=sum2;
+        }
+
+    </script>
+
+</head>
+<body>
+<div>
+    <input type="text" id="eden">  <input type="text" id="dva"> i
+</div>
+<div>
+    <input type="text" id="tri">  <input type="text" id="chetiri"> i
+</div>
+<div>
+    <input type="button" id="dodaj" value="Add" onclick="Dodaj()">
+</div>
+<div>
+    <input type="text" id="prv">  <input type="text" id="vtor"> i
+</div>
+
+</body>
+</html>

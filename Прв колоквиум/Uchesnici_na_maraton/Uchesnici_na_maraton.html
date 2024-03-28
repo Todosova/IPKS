@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Учесници на маратон</h1>
+<div><label>Име</label><input type="text" id="name" ></div>
+<div><label>Презиме</label><input type="text" id="surname" ></div>
+<div><label>Година</label><input type="text" id="year" ></div>
+<div><label>Код</label><input type="text" id="code" ></div>
+<div><label>Пол</label><select id="gender">
+    <option>Машки</option>
+    <option>Женски</option>
+</select></div>
+<div><label></label><input type="button" id="btn" value="Додај" onclick="dodaj()"></div>
+<table id="table">
+    <p>Вкупно потврдени ученици: <span id="here"></span></p>
+    <thead><th>Име</th><th>Презиме</th><th>Таг</th><th>Опција</th></thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+<script>
+    function dodaj()
+    {
+        var name=document.getElementById('name');
+        var surname=document.getElementById('surname');
+        var year=document.getElementById('year');
+        var code=document.getElementById('code');
+        var gender=document.getElementById('gender');
+        var tableRef=document.getElementById("table").getElementsByTagName('tbody')[0];
+
+        if(name.value=="" || surname.value=="" || year.value=="" || code.value=="" || gender.value=="")
+        {
+            alert("Vnesete podatoci vo site polinja");
+            return;
+        }
+        var newtag=gettag(code.value);
+
+        var newRow=tableRef.insertRow(tableRef.rows.length);
+
+        var newCell0=newRow.insertCell(0);
+        var newCell1=newRow.insertCell(1);
+        var newCell2=newRow.insertCell(2);
+        var newCell3=newRow.insertCell(3);
+
+        newCell0.innerHTML=name.value;
+        newCell1.innerHTML=surname.value;
+        newCell2.innerHTML=newtag;
+
+        newCell3.setAttribute("class","btn")
+
+        var btn=document.createElement("BUTTON");
+        var t=document.createTextNode("Потврди");
+        btn.appendChild(t);
+        btn.setAttribute('onclick', 'Potvrdi(this)');
+        newCell3.appendChild(btn);
+        if(year.value<18)
+        {
+            btn.disabled=true
+        }
+
+
+        var btn2=document.createElement("BUTTON");
+        var t2=document.createTextNode("Избриши");
+        btn2.appendChild(t2);
+        btn2.setAttribute('onclick', 'Izbrishi(this)');
+        newCell3.appendChild(btn2);
+        if(year.value<18)
+        {
+            btn2.disabled=true
+        }
+
+        if(gender.value==="Машки")
+        {
+            newRow.style.backgroundColor='blue'
+        }
+        if(gender.value==="Женски")
+        {
+            newRow.style.backgroundColor='red'
+        }
+
+
+        name.value="";
+        surname.value="";
+        year.value="";
+        code.value="";
+        gender.value="";
+    }
+
+    function gettag(code)
+    {
+        var tag=""
+        for(var i=0;i<code.length;i++)
+        {
+            if(!isNaN(code[i])) {
+                if (code[i] < 5) {
+                    continue;
+                } else {
+                    tag += code[i];
+                    console.log(tag);
+                }
+            }
+            else {
+                if (code[i] === code[i].toLowerCase()) {
+                    tag += code[i].toUpperCase()
+                    console.log(tag);
+                }
+                if (code[i] === code[i].toUpperCase()) {
+                    tag += code[i].toLowerCase()
+                    console.log(tag);
+                }
+            }
+        }
+        console.log(tag);
+        return tag
+    }
+    brojach=0;
+    function Potvrdi(ref)
+    {
+        brojach++;
+        document.getElementById("here").innerHTML=brojach;
+        ref.disabled=true;
+        ref.nextElementSibling.disabled=true
+    }
+    function Izbrishi(ref)
+    {
+        tr=ref.parentNode.parentNode;
+        tr.parentNode.removeChild(tr);
+    }
+</script>
+<style>
+    label{
+        display: inline-block;
+        width: 100px;
+    }
+    div{
+        padding: 8px;
+    }
+    table,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 3px;
+    }
+</style>
+</body>
+</html>

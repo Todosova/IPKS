@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Oсигурување на возила</h1>
+<div><label>Име</label><input type="text" id="ime"></div>
+<div><label>Презиме</label><input type="text" id="prezime"></div>
+<div><label>Регистарска таблица</label><input type="text" id="tablica"></div>
+<div><label>Години на страрост</label><input type="text" id="godina"></div>
+<div><label>Сообраќајна незгода </label> <input type="radio" name=same id="da" class="soobrakjajka">Да <input type="radio" name="same" id="ne" class="soobrakjajka">Не</div>
+<button onclick="generiraj()" id="btn">Генерирај сметка</button>
+<h2>Сметки</h2>
+<p>Вкупно сметки за плаќање: <span id="total">0</span></p>
+<span id="kartichki"></span>
+
+<script>
+    var brojach=0;
+    function generiraj() {
+        var ime = document.getElementById('ime');
+        var prezime = document.getElementById('prezime');
+        var tablica = document.getElementById('tablica');
+        var godina = document.getElementById('godina');
+        var soobrakjajka = document.getElementsByClassName('soobrakjajka')
+        var soobrakjajkada = document.getElementById('da');
+        var soobrakjajkane = document.getElementById('ne');
+
+        if (ime.value == "" || prezime.value == "" || tablica.value == "" || godina.value == "" || (soobrakjajkada.checked == false && soobrakjajkane.checked == false)) {
+            alert("Vnesete podatoci za site polinja");
+            return;
+        }
+        var cena=3000;
+        var soobrakjaj=""
+        if (soobrakjajkada.checked == true) {
+            cena+=500;
+            soobrakjaj= "Има";
+        } else {
+            soobrakjaj="Нема";
+        }
+        if(!checkTablichki(tablica.value))
+        {
+            alert("Nevaliden vlez za tablicki")
+            return;
+        }
+        console.log(5555%1111)
+        console.log(tablica.value.slice(3,7))
+        console.log(((tablica.value.slice(3,7))%1111)==0)
+        if(((tablica.value.slice(3,7))%1111)==0)
+        {
+            cena+=1000;
+        }
+        console.log(cena)
+        var card = document.getElementById('kartichki');
+        var createcard = document.createElement("div");
+
+        createcard.innerHTML =
+            "<p>" + ime.value + " " + prezime.value + "</p>"
+            + "<p>" + tablica.value + "</p>"
+            + "<p>Сообраќајки: "+soobrakjaj +"</p>"
+            + "<p>Старост на возило: " + godina.value + "</p>"
+            + "<p>За плаќање:" + cena + "</p>" +
+            "<button onclick='plati(this)' id='plati'>Плати</button>"+" "+"<button onclick='izbrishi(this)' id='izbrishi'>Избриши</button>"
+        brojach++;
+        createcard.setAttribute("class", "nova")
+        card.append(createcard)
+        document.getElementById('total').innerHTML=brojach;
+        if(godina.value>30)
+        {
+            createcard.style.backgroundColor='red';
+        }
+        else
+        {
+            createcard.style.backgroundColor='lightgreen'
+        }
+        ime.value="";
+        prezime.value="";
+        tablica.value="";
+        godina.value="";
+        soobrakjajkane.value="";
+        soobrakjajkada.value="";
+    }
+
+    function checkTablichki(tablica)
+    {
+        var regex=/^[A-Z][A-Z]-[0-9][0-9][0-9][0-9]-[A-Z][A-Z]$/
+        if(regex.test(tablica))
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    function plati(ref)
+    {
+        var tr=ref.parentNode
+        ref.disabled=true;
+        ref.nextElementSibling.disabled=true;
+    }
+    function izbrishi(ref)
+    {
+        var tr=ref.parentNode
+        brojach--;
+        document.getElementById('total').innerHTML=brojach;
+        tr.remove()
+    }
+</script>
+
+<style>
+    h1
+    {
+        text-align: center;
+    }
+    div{
+        padding: 10px;
+    }
+    label{
+        display: inline-block;
+        width: 200px;
+    }
+    .nova{
+        display: inline-block;
+        padding: 28px;
+        margin: 10px;
+        border: 1px solid black;
+        height: 200px;
+        text-align: center;
+    }
+
+</style>
+</body>
+</html>

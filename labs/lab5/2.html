@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>
+        let result=Math.floor(1000 + Math.random()*9000).toString();
+        let tries=0;
+        function restart(){
+            result=Math.floor(1000 + Math.random()*9000).toString();
+            tries=0;
+            document.getElementById("prikaz").innerHTML="";
+            document.getElementById("obid").innerText="Обиди " + tries;
+            document.getElementById("guess").disabled=false;
+            document.getElementById("guess").value = "";
+        }
+        function pogodok(){
+            let input=document.getElementById("guess").value;
+            if(input!=="") {
+                let place = 0;
+                let number = 0;
+                let fixed="";
+                for (let i = 0; i < 4; i++) {
+                    if (input.charAt(i) === result.charAt(i))
+                    {
+                        place++;
+                        fixed+="x";
+                    }
+                    else  fixed+=input.charAt(i);
+                }
+                for (let i = 0; i < fixed.length; i++) {
+                    if(fixed.includes(result.charAt(i)) && input.charAt(i) !== result.charAt(i)) number++;
+                }
+                document.getElementById("obid").innerText = "Обиди " + ++tries;
+                let p=document.createElement("p");
+                p.style.margin="0";
+                document.getElementById("prikaz").appendChild(p).appendChild(document.createTextNode("Има " + number + ", на место " + place + " " + input));
+                document.getElementById("guess").value = "";
+                let P=document.createElement("p");
+                P.style.margin="0";
+                if (place === 4) {
+                    document.getElementById("prikaz").appendChild(P).appendChild(document.createTextNode("ПОГОДОК!!!"));
+                    document.getElementById("guess").disabled=true;
+                }
+                if (tries === 10 && place!==4) {
+                    document.getElementById("prikaz").appendChild(P).appendChild(document.createTextNode("Не успеавте да погодите од 10 обиди. Бројот е " + result));
+                    document.getElementById("guess").disabled=true;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <div style="text-align:right; float:left">
+        <label id="obid">Обиди 0</label>
+        <p>Погодок: <input id="guess" style="width:150px"/></p>
+        <button onclick="pogodok()">Погоди</button>
+        <button onclick="restart()">Од почеток</button>
+    </div>
+</div>
+<br/>
+<div id="prikaz" style="clear: both">
+</div>
+</body>
+</html>

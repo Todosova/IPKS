@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function image() {
+            var slika = new Array();
+            var i;
+            slika[0] = 'https://designmodo.com/wp-content/uploads/2014/07/free-photos.jpg';
+            slika[1] = 'https://farm5.staticflickr.com/4060/4567292488_5d3f4b05f6_z.jpg';
+            slika[2] = 'https://wallup.net/wp-content/uploads/2017/03/28/401266-landscape-road-forest-748x421.jpg';
+            for (i = 0; i < 1; i++) {
+                var s = Math.floor(Math.random() * slika.length);
+                document.getElementById('slika').innerHTML = '<img src="' + slika[s] + '"style="width:500px"/>';
+                // document.getElementById('slika').innerHTML += '<img src="' + slika[s] + '"style="width:500px"/>';
+
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div>
+    <input type="button" onclick="image();" value="Click">
+    <div id="slika"></div>
+</div>
+</body>
+</html>

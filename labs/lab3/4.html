@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>About Me</title>
+    <script>
+        var library = [
+            {
+                title: 'The Hobbit',
+                author: 'J.R.R. Tolkien',
+                readingStatus: true
+            },
+
+            {
+                title: 'The Lord of the Rings',
+                author: 'J.R.R. Tolkien',
+                readingStatus: false
+            }];
+        for (var i = 0; i < library.length; i++) {
+            var book = "'" + library[i].title + "'" + ' by ' + library[i].author + ".";
+            if (library[i].readingStatus) {
+                document.write("You already read " + book);
+                document.write("<br>");
+            } else {
+                document.write("You still need to read " + book);
+                document.write("<br>");
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 >Details</h1>
+<div><label>Name</label><input type="text" id="name"></div>
+<div><label>Index</label><input type="text" id="index"></div>
+<div><label>Phone</label><input type="text" id="phone"></div>
+<div><label>Grade</label>
+    <input type="radio" id="grade5" name="same" class="grade" value="5">5
+    <input type="radio" id="grade6" name="same" class="grade" value="6">6
+    <input type="radio" id="grade7" name="same" class="grade" value="7">7
+    <input type="radio" id="grade8" name="same" class="grade" value="8">8
+    <input type="radio" id="grade9" name="same" class="grade" value="9">9
+    <input type="radio" id="grade10" name="same" class="grade" value="10">10</div>
+
+<div><label>Sesion</label>
+    <select id="sesion">
+        <option>January</option>
+        <option>June</option>
+        <option>September</option>
+    </select>
+</div>
+<button id="btn" onclick="Import()">Import student</button>
+<h3 id="title">Revert history</h3>
+<span id="lista"></span>
+
+
+<h2 class="inline">Students </h2><h3 class="inline">  (average grade:  <span id="ocena">0.0)</span> </h3>
+
+<table id="tabela">
+    <thead><th>Name</th><th>Index</th><th>Phone</th><th>Grade</th><th>Session</th><th>Actions</th></thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+<script>
+    brojach=0;
+    sumaoceni=0;
+    function Import()
+    {
+        var name=document.getElementById('name');
+        var index=document.getElementById('index');
+        var phone=document.getElementById('phone');
+        var grade5 = document.getElementById("grade5")
+        var grade6 = document.getElementById("grade6")
+        var grade7 = document.getElementById("grade7")
+        var grade8 = document.getElementById("grade8")
+        var grade9 = document.getElementById("grade9")
+        var grade10 = document.getElementById("grade10")
+        var sesion=document.getElementById('sesion');
+        var tableRef=document.getElementById('tabela').getElementsByTagName('tbody')[0];
+
+        if(name.value=="" || index.value=="" || phone.value=="" || (grade5.checked==false &&grade6.checked==false && grade7.checked==false && grade8.checked==false && grade9.checked==false && grade10.checked==false) || sesion.value=="")
+        {
+            alert("Vnesete vrednosti vo site polinja");
+            return;
+        }
+
+        var prvitricifri=phone.value.slice(0,3);
+        var vtoritricifri=phone.value.slice(3,6);
+        var tretitricifri=phone.value.slice(6,10);
+        var finalphone=prvitricifri+'/'+vtoritricifri+'-'+tretitricifri
+
+        var ocenka=""
+        if(grade5.checked===true)
+        {
+            ocenka = "5"
+        }
+        else if(grade6.checked===true)
+        {
+            ocenka = "6"
+        }
+        else if(grade7.checked===true)
+        {
+            ocenka = "7"
+        }
+        else if(grade8.checked===true)
+        {
+            ocenka = "8"
+        }
+        else if(grade9.checked===true)
+        {
+            ocenka = "9"
+        }
+        else if(grade10.checked===true)
+        {
+            ocenka= "10"
+        }
+        console.log(ocenka)
+        var newRow=tableRef.insertRow(tableRef.rows.length)
+        var newcell0=newRow.insertCell(0);
+        var newcell1=newRow.insertCell(1);
+        var newcell2=newRow.insertCell(2);
+        var newcell3=newRow.insertCell(3);
+        var newcell4=newRow.insertCell(4);
+        var newcell5=newRow.insertCell(5);
+
+        newcell0.innerHTML=name.value;
+        newcell1.innerHTML=index.value;
+        newcell2.innerHTML=finalphone;
+        newcell3.innerHTML=ocenka;
+        newcell4.innerHTML=sesion.value;
+
+        newcell5.setAttribute('class','btns')
+        var btn=document.createElement("BUTTON");
+        var t=document.createTextNode("Confirm")
+        btn.appendChild(t);
+        btn.setAttribute('onclick','confirm(this)');
+        newcell5.appendChild(btn)
+
+        var btn2=document.createElement("BUTTON");
+        var t2=document.createTextNode("Revert")
+        btn2.appendChild(t2);
+        btn2.setAttribute('onclick','Revert(this)');
+        newcell5.appendChild(btn2)
+
+        var r1 = newRow.children[3].innerHTML
+        var parsed = parseInt(r1)
+
+        brojach++;
+        sumaoceni+=parsed;
+        prosechnaocena=sumaoceni/brojach;
+        final=prosechnaocena.toFixed(1)
+        var el=document.getElementById('ocena')
+        el.innerHTML=final    }
+
+    function confirm(ref)
+    {
+        var tr = ref.parentNode.parentNode
+        tr.style.backgroundColor = "lightgreen"
+        ref.disabled = true
+        ref.nextElementSibling.disabled = true
+    }
+    function Revert(ref)
+    {
+
+
+        var tr=ref.parentNode.parentNode;
+        tr.parentNode.removeChild(tr);
+        var element=document.getElementById('lista');
+        var li=document.createElement('li');
+        var index= tr.children[1].innerHTML
+        var ocenka = tr.children[3].innerHTML
+        li.innerHTML=index.value+' - grade '+ ocenka
+        element.append(li);
+
+        var r1 = tr.children[3].innerHTML
+        var parsed = parseInt(r1)
+
+        brojach--;
+        sumaoceni-=parsed;
+        prosechnaocena=sumaoceni/brojach;
+        final=prosechnaocena.toFixed(1)
+        var el=document.getElementById('ocena')
+        el.innerHTML=final
+        tr.remove()
+    }
+</script>
+
+
+<style>
+    label{
+        display: inline-block;
+        width: 100px;
+    }
+    div{
+        padding: 10px;
+    }
+    table,td,th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 3px;
+    }
+
+    .inline{
+
+    }
+    #title{
+        position: absolute;
+        left: 432px;
+        top: 30px;
+    }
+</style>
+</body>
+</html>
